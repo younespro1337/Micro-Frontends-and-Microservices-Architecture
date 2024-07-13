@@ -1,0 +1,51 @@
+services:
+  server:
+    depends_on:
+      - db
+    build:
+      context: .
+    environment:
+      NODE_ENV: development
+      PG_HOST: db
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: hallamadrid2222
+      PG_DB: new_database
+      DB_TYPE: postgres
+    ports:
+      - "3000:3000"
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./node_modules
+          action: rebuild
+        - path: ./src
+          action: rebuild
+    networks:
+      - docker-network
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: new_database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: hallamadrid2222
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - docker-network
+
+volumes:
+  db-data:
+
+networks:
+  docker-network:
+    driver: bridge
