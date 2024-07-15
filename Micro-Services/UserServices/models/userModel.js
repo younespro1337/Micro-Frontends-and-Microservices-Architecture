@@ -7,7 +7,7 @@ email:{
 },
 password:{
     type:String,
-    required:trusted,
+    required:true,
 },
 })
 

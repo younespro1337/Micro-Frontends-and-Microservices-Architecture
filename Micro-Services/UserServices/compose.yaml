@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+    environment:
+      MONGODB_URI: "MONGODB_URI" # put your own mongo uri
+      PORT: 3001
+      NODE_ENV: development
+    ports:
+      - "3001:3001"
+    develop:
+      watch:
+        -path: ./
+        action: rebuild
+    networks:
+      - docker-network
+
+  db:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - db-data:/data/db
+    networks:
+      - docker-network
+
+volumes:
+  db-data:
+
+networks:
+  docker-network:
+    driver: bridge

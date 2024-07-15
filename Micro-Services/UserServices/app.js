@@ -6,9 +6,7 @@ const fileUpload = require('express-fileupload');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI;
-
+const { PORT , MONGODB_URI } = process.env
 // Middleware setup
 app.use(express.json());
 app.use(cookieParser());
@@ -27,7 +25,7 @@ app.use('/api/v1', userRoute);
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT || 3001}`);
 });
 
 module.exports = app;

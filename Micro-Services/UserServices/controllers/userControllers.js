@@ -14,6 +14,7 @@ exports.createUser = async (req, res) => {
 
 // Update an existing user
 exports.updateUser = async (req, res) => {
+    console.log(req)
     try {
         const { id } = req.params;
         const { email, password } = req.body;
